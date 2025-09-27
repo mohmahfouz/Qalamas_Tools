@@ -75,7 +75,8 @@
         }
         #tab1:checked ~ .tab-content:nth-of-type(1),
         #tab2:checked ~ .tab-content:nth-of-type(2),
-        #tab3:checked ~ .tab-content:nth-of-type(3) {
+        #tab3:checked ~ .tab-content:nth-of-type(3),
+        #tab4:checked ~ .tab-content:nth-of-type(4) {
             display: block;
         }
         .tab-description {
@@ -328,6 +329,8 @@
         <label for="tab2">قياس الدرجات</label>
         <input type="radio" id="tab3" name="tabs">
         <label for="tab3">أسماء الساعات</label>
+        <input type="radio" id="tab4" name="tabs">
+        <label for="tab4">صور طلوع المنازل بالغداة</label>
         <div class="tab-content">
             <p class="tab-description">للمساعدة على تتبع حركة الشمس فى منازلها باستخدام البرامج الفلكية، إليكم الأسماء الغربية للنجوم</p>
             <div class="mansions-container">
@@ -664,6 +667,21 @@
                     <input type="range" id="time-slider" min="0" max="1439" step="1">
                     <button id="reset-time">الآن</button>
                     <div class="time-display" id="time-display">00:27</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="tab-content">
+        <div class="mansions-images-tab">
+            <p class="tab-description">صور توضيحية لطلوع المنازل القمرية بالغداة لمنزلتي الشرطان والبطين.</p>
+            <div class="mansions-container">
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الشرطان</h2>
+                    <img src="the_little_abdomen.jpg" alt="صورة الشرطان" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">البطين</h2>
+                    <img src="the_two_signs.jpg" alt="صورة البطين" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 </div>
             </div>
         </div>
