@@ -313,6 +313,24 @@
                 width: 60px;
             }
         }
+            #tab4:checked ~ #tab4-content {
+            display: block !important;
+        }
+        .mansions-images-tab {
+            text-align: center;
+            padding: 20px;
+        }
+        .mansions-images-tab .mansion-card {
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+            margin: 10px;
+        }
+        @media (max-width: 600px) {
+            .mansions-images-tab .mansion-card {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
