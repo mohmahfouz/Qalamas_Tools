@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات قلمس محمدى معاصر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Amiri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .author-header {
+            text-align: right;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            font-size: 1.2em;
+            color: #555;
+            font-weight: 700;
+        }
+        .introduction {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.2em;
+            color: #555;
+        }
+        .introduction p:last-child {
+            margin-top: 20px;
+        }
+        .tabs {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tabs input[type="radio"] {
+            display: none;
+        }
+        .tabs label {
+            display: inline-block;
+            margin: 0 0 -1px;
+            padding: 15px 25px;
+            font-weight: 600;
+            text-align: center;
+            color: #bbb;
+            border: 1px solid transparent;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+        }
+        .tabs label:hover {
+            color: #888;
+        }
+        .tabs input:checked + label {
+            color: #555;
+            border: 1px solid #ddd;
+            border-top: 2px solid #3498db;
+            border-bottom: 1px solid #fff;
+        }
+        .tab-content {
+            display: none;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+        #tab1:checked ~ .tab-content:nth-of-type(1),
+        #tab2:checked ~ .tab-content:nth-of-type(2),
+        #tab3:checked ~ .tab-content:nth-of-type(3) {
+            display: block;
+        }
+        .tab-description {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .mansions-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .mansion-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .mansion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .mansion-title {
+            font-size: 1.5em;
+            color: #34495e;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .mansion-composition {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .mansion-stars {
+            font-size: 1em;
+            color: #7f8c8d;
+            direction: ltr;
+            text-align: right;
+        }
+        .mansion-stars ul {
+            padding-right: 20px;
+            margin: 0;
+        }
+        .mansion-stars li {
+            margin-bottom: 5px;
+        }
+        .degrees-tab {
+            text-align: center;
+        }
+        .degrees-tab img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .degrees-explanation {
+            font-size: 1.1em;
+            color: #555;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .image-citation {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 10px;
+        }
+        .clock-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .clock {
+            width: 40vw;
+            max-width: 500px;
+            aspect-ratio: 1/1;
+            border: 18px solid #2c3e50;
+            border-radius: 50%;
+            position: relative;
+            padding: 18px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ffffff, #e8ecef);
+        }
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .tick {
+            position: absolute;
+            width: 2px;
+            height: 12px;
+            background: #2c3e50;
+            top: 5%;
+            left: 50%;
+            transform-origin: 50% 95%;
+        }
+        .hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 100% 50%;
+            transform: rotate(90deg);
+            background: #2c3e50;
+            border-radius: 4px;
+            transition: transform 0.05s cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+        .hour-hand {
+            width: 35%;
+            height: 10px;
+            margin-left: -35%;
+            background: #d4a017;
+        }
+        .minute-hand {
+            width: 45%;
+            height: 8px;
+            margin-left: -45%;
+        }
+        .second-hand {
+            width: 48%;
+            height: 4px;
+            background: #e74c3c;
+            margin-left: -48%;
+        }
+        .center-dot {
+            width: 14px;
+            height: 14px;
+            background: #d4a017;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        .number {
+            position: absolute;
+            font-size: 16px;
+            text-align: center;
+            transform: translate(-50%, -50%);
+            color: #2c3e50;
+            width: 70px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .number0 { top: 20%; left: 50%; } /* AM: 00:00 (الفحمة) */
+        .number12 { top: 20%; left: 50%; } /* PM: 12:00 (الهاجِرة) */
+        .number1 { top: 25%; left: 77%; }
+        .number2 { top: 35%; left: 87%; }
+        .number3 { top: 50%; left: 92%; }
+        .number4 { top: 65%; left: 87%; }
+        .number5 { top: 80%; left: 77%; }
+        .number6 { top: 90%; left: 50%; }
+        .number7 { top: 80%; left: 23%; }
+        .number8 { top: 65%; left: 13%; }
+        .number9 { top: 50%; left: 8%; }
+        .number10 { top: 35%; left: 13%; }
+        .number11 { top: 25%; left: 23%; }
+        .controls {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .controls label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .controls input[type="range"] {
+            width: 250px;
+            accent-color: #d4a017;
+            cursor: pointer;
+        }
+        .controls input[type="range"]:hover {
+            opacity: 0.8;
+        }
+        .controls button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background: #d4a017;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .controls button:hover {
+            background: #b8860b;
+        }
+        .time-display {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            .mansions-container {
+                grid-template-columns: 1fr;
+            }
+            .tabs label {
+                padding: 10px 15px;
+            }
+            .clock {
+                width: 80vw;
+                padding: 12px;
+                border-width: 12px;
+            }
+            .controls {
+                width: 80%;
+                padding: 10px;
+            }
+            .controls input[type="range"] {
+                width: 100%;
+            }
+            .number {
+                font-size: 14px;
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>أدوات قلمس محمدى معاصر</h1>
+    <div class="author-header">إعداد: محمد محفوظ</div>
+    <div class="introduction">
+        <p>التقويم المحمدى هو نتيجة بحث السيد الأستاذ فرقد الحسينى القزوينى دام فيضه: لا علاقة له بحركة القمر. بل هو: تقويم شمسى نجمى يعتمد على حركة الشمس فى منازلها لمعرفة مواقع الشهور فى الفصول أولا. ومعرفة عدد السنين. المصدر كتاب فيض العليم في معرفة التقويم للسيد الأستاذ فرقد الحسيني القزويني.</p>
+        <p>استلهاما وتطبيقا لبحث السيد الأستاذ باستخدام برامج الفلك إليكم بعض الإدوات للمساعدة فى تتبع حركة الشمس فى منازلها</p>
+    </div>
+    <div class="tabs">
+        <input type="radio" id="tab1" name="tabs" checked>
+        <label for="tab1">أسماء النجوم</label>
+        <input type="radio" id="tab2" name="tabs">
+        <label for="tab2">قياس الدرجات</label>
+        <input type="radio" id="tab3" name="tabs">
+        <label for="tab3">أسماء الساعات</label>
+        <div class="tab-content">
+            <p class="tab-description">للمساعدة على تتبع حركة الشمس فى منازلها باستخدام البرامج الفلكية، إليكم الأسماء الغربية للنجوم</p>
+            <div class="mansions-container">
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الشرطان</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α Ari (Hamal)</li>
+                            <li>β Ari (Sheratan)</li>
+                            <li>γ2 Ari (Mesarthim)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">البطين</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>ε Ari</li>
+                            <li>δ Ari (Botein)</li>
+                            <li>ρ3 Ari</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الثريا</h2>
+                    <p class="mansion-composition">تتكون من عنقود النجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>Pleiades</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الدبران</h2>
+                    <p class="mansion-composition">تتكون من نجم واحد</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α Tau (Aldebaran)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الهقعة</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>λ Ori (Meissa)</li>
+                            <li>φ1 Ori</li>
+                            <li>φ2 Ori</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الهنعة</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>γ Gem (Alhena)</li>
+                            <li>ξ Gem</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الذراع</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α CMi (Procyon)</li>
+                            <li>β CMi (Gomeisa)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">النثرة</h2>
+                    <p class="mansion-composition">تتكون من عنقود النجوم ونجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>Praesepe</li>
+                            <li>γ Cnc (Asellus Borealis)</li>
+                            <li>δ Cnc (Asellus Australis)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الطرف</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>ε Leo</li>
+                            <li>ο Leo (Subra)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الجبهة</h2>
+                    <p class="mansion-composition">تتكون من 4 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>ζ Leo (Adhafera)</li>
+                            <li>γ1 Leo (Algieba)</li>
+                            <li>η Leo</li>
+                            <li>α Leo (Regulus)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الزبرة</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>δ Leo (Zosma)</li>
+                            <li>θ Leo (Chertan)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الصرفة</h2>
+                    <p class="mansion-composition">تتكون من نجم واحد</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>β Leo (Denebola)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">العواء</h2>
+                    <p class="mansion-composition">تتكون من 5 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>β Vir (Zavijava)</li>
+                            <li>η Vir (Zaniah)</li>
+                            <li>γ Vir (Porrima)</li>
+                            <li>δ Vir</li>
+                            <li>ε Vir (Vindemiatrix)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">السماك الأعزل</h2>
+                    <p class="mansion-composition">تتكون من نجم واحد</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α Vir (Spica)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الغفر</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>ι Vir (Syrma)</li>
+                            <li>κ Vir</li>
+                            <li>λ Vir</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الزبانى</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α2 Lib (Zubenelgenubi)</li>
+                            <li>β Lib (Zubeneschamali)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الإكليل</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>β1 Sco (Acrab)</li>
+                            <li>δ Sco (Dschubba)</li>
+                            <li>π Sco</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">القلب</h2>
+                    <p class="mansion-composition">تتكون من نجم واحد</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α Sco (Antares)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الشولة</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>λ Sco (Shaula)</li>
+                            <li>υ Sco (Lesath)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">النعائم</h2>
+                    <p class="mansion-composition">تتكون من 8 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>γ2 Sgr</li>
+                            <li>δ Sgr</li>
+                            <li>ε Sgr</li>
+                            <li>η Sgr</li>
+                            <li>σ Sgr</li>
+                            <li>φ Sgr</li>
+                            <li>τ Sgr</li>
+                            <li>ζ Sgr</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">البلدة</h2>
+                    <p class="mansion-composition">هي المنطقة حيث لا توجد نجوم بين النعائم وسعد الذابح</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">سعد الذابح</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α1 Cap (Algedi)</li>
+                            <li>β Cap (Dabih)</li>
+                            <li>ν Cap</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">سعد بلع</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>ν Aqr</li>
+                            <li>μ Aqr</li>
+                            <li>ε Aqr (Albali)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">سعد السعود</h2>
+                    <p class="mansion-composition">تتكون من 3 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>β Aqr (Sadalsuud)</li>
+                            <li>ξ Aqr</li>
+                            <li>λ Cap</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">سعد الأخبية</h2>
+                    <p class="mansion-composition">تتكون من 4 نجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>γ Aqr (Sadachbia)</li>
+                            <li>π Aqr</li>
+                            <li>ζ2 Aqr</li>
+                            <li>η Aqr</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">المقدم</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>α And (Alpheratz)</li>
+                            <li>γ Peg (Algenib)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">المؤخر</h2>
+                    <p class="mansion-composition">تتكون من نجمين</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>β Peg (Scheat)</li>
+                            <li>α Peg (Markab)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mansion-card">
+                    <h2 class="mansion-title">الرشا أو السمكة</h2>
+                    <p class="mansion-composition">تتكون من نجم واحد وقوسين من النجوم</p>
+                    <div class="mansion-stars">
+                        <ul>
+                            <li>β And (Mirach)</li>
+                            <li>Two arcs of stars forming a fish</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="degrees-tab">
+                <p class="degrees-explanation">لقياس الدرجات في السماء، استخدم الصورة أدناه كمرجع لتحديد مواقع النجوم والمنازل القمرية. يمكنك استخدام برامج فلكية مثل Stellarium أو SkySafari لتحديد الزوايا بين النجوم بدقة. الصورة توضح كيفية تقسيم السماء إلى درجات لتتبع حركة الشمس عبر المنازل العربية.</p>
+                <img src="https://i.pinimg.com/736x/d8/9b/07/d89b07bfa740f1c74836f4844dd7b3d7.jpg" alt="قياس الدرجات في السماء">
+                <p class="image-citation">المصدر: Davis Craig, Pinterest</p>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="clock-tab">
+                <h2>أسماء الساعات العربية</h2>
+                <div class="clock">
+                    <div class="clock-face" id="clock-face">
+                        <div class="tick" style="transform: rotate(0deg);"></div>
+                        <div class="tick" style="transform: rotate(30deg);"></div>
+                        <div class="tick" style="transform: rotate(60deg);"></div>
+                        <div class="tick" style="transform: rotate(90deg);"></div>
+                        <div class="tick" style="transform: rotate(120deg);"></div>
+                        <div class="tick" style="transform: rotate(150deg);"></div>
+                        <div class="tick" style="transform: rotate(180deg);"></div>
+                        <div class="tick" style="transform: rotate(210deg);"></div>
+                        <div class="tick" style="transform: rotate(240deg);"></div>
+                        <div class="tick" style="transform: rotate(270deg);"></div>
+                        <div class="tick" style="transform: rotate(300deg);"></div>
+                        <div class="tick" style="transform: rotate(330deg);"></div>
+                        <div class="hand hour-hand" id="hour-hand"></div>
+                        <div class="hand minute-hand" id="minute-hand"></div>
+                        <div class="hand second-hand" id="second-hand"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <label for="time-slider">اختبار الوقت (ساعة:دقيقة)</label>
+                    <input type="range" id="time-slider" min="0" max="1439" step="1">
+                    <button id="reset-time">الآن</button>
+                    <div class="time-display" id="time-display">00:27</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const timeNames = [
+            { time: "00:00", name: "الفحمة" },
+            { time: "01:00", name: "الزُّلَّة" },
+            { time: "02:00", name: "الزُّلْفة" },
+            { time: "03:00", name: "البُهْرة" },
+            { time: "04:00", name: "السَّحَر" },
+            { time: "05:00", name: "الفَجْر" },
+            { time: "06:00", name: "الصُّبْح" },
+            { time: "07:00", name: "الصَّبَاح" },
+            { time: "08:00", name: "الشُّرُوق" },
+            { time: "09:00", name: "البُكُور" },
+            { time: "10:00", name: "الغُدْوة" },
+            { time: "11:00", name: "الضُّحَىٰ" },
+            { time: "12:00", name: "الهاجِرة" },
+            { time: "13:00", name: "الظَّهِيرة" },
+            { time: "14:00", name: "الرَّوَاح" },
+            { time: "15:00", name: "العَصْر" },
+            { time: "16:00", name: "القَصْر" },
+            { time: "17:00", name: "الأَصِيل" },
+            { time: "18:00", name: "العَشِيّ" },
+            { time: "19:00", name: "الغُرُوب" },
+            { time: "20:00", name: "الشَّفَق" },
+            { time: "21:00", name: "الغَسَق" },
+            { time: "22:00", name: "العَتَمة" },
+            { time: "23:00", name: "السُّدْفة" }
+        ];
+
+        let customTime = null;
+
+        function setupClockFace(isPM) {
+            const clockFace = document.getElementById('clock-face');
+            if (!clockFace) return;
+            clockFace.querySelectorAll('.number').forEach(el => el.remove());
+
+            const startHour = isPM ? 12 : 0;
+            const endHour = isPM ? 23 : 11;
+            const filteredTimes = timeNames.filter(t => {
+                const hour = parseInt(t.time.split(':')[0]);
+                return hour >= startHour && hour <= endHour;
+            });
+
+            filteredTimes.forEach(t => {
+                const hour = parseInt(t.time.split(':')[0]);
+                const position = isPM && hour >= 12 ? hour - 12 : hour;
+                const numberDiv = document.createElement('div');
+                numberDiv.className = `number number${position}`;
+                numberDiv.innerText = t.name;
+                clockFace.appendChild(numberDiv);
+            });
+        }
+
+        function setClock() {
+            const hourHand = document.getElementById('hour-hand');
+            const minuteHand = document.getElementById('minute-hand');
+            const secondHand = document.getElementById('second-hand');
+            const timeDisplay = document.getElementById('time-display');
+            if (!hourHand || !minuteHand || !secondHand || !timeDisplay) return;
+
+            let hours, minutes, seconds;
+            if (customTime !== null) {
+                hours = Math.floor(customTime / 60);
+                minutes = customTime % 60;
+                seconds = 0;
+            } else {
+                const now = new Date();
+                const utcOffset = 3 * 60 * 60 * 1000; // UTC+3
+                const utcTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60 * 1000) + utcOffset);
+                hours = utcTime.getHours();
+                minutes = utcTime.getMinutes();
+                seconds = utcTime.getSeconds();
+            }
+
+            timeDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+            const secondDeg = (seconds / 60) * 360 + 90;
+            const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6 + 90;
+            const hourDeg = ((hours % 12) / 12) * 360 + (minutes / 60) * 30 + 90;
+
+            secondHand.style.transform = `rotate(${secondDeg}deg)`;
+            minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+            hourHand.style.transform = `rotate(${hourDeg}deg)`;
+
+            const isPM = hours >= 12;
+            const lastIsPM = document.body.dataset.isPM === 'true';
+            if (isPM !== lastIsPM) {
+                document.body.dataset.isPM = isPM;
+                setupClockFace(isPM);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const timeSlider = document.getElementById('time-slider');
+            const resetButton = document.getElementById('reset-time');
+            const now = new Date();
+            const utcOffset = 3 * 60 * 60 * 1000;
+            const utcTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60 * 1000) + utcOffset);
+            timeSlider.value = utcTime.getHours() * 60 + utcTime.getMinutes();
+
+            timeSlider.addEventListener('input', () => {
+                customTime = parseInt(timeSlider.value);
+                setClock();
+            });
+
+            resetButton.addEventListener('click', () => {
+                customTime = null;
+                const now = new Date();
+                const utcTime = new Date(now.getTime() + (now.getTimezoneOffset() * 60 * 1000) + utcOffset);
+                timeSlider.value = utcTime.getHours() * 60 + utcTime.getMinutes();
+                setClock();
+            });
+
+            document.body.dataset.isPM = utcTime.getHours() >= 12;
+            setupClockFace(document.body.dataset.isPM === 'true');
+            setClock();
+            setInterval(setClock, 1000);
+        });
+    </script>
+</body>
+</html>
